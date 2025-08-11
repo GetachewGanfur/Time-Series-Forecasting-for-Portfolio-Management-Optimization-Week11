@@ -8,10 +8,10 @@ import numpy as np
 from datetime import datetime, timedelta
 
 # Import modules
-from data.data_manager import DataManager
-from utils.portfolio_optimizer import PortfolioOptimizer
-from utils.backtesting import PortfolioBacktester
-from utils.visualization import FinancialVisualizer
+from src.data_manager import DataManager
+from src.portfolio_optimizer import PortfolioOptimizer
+from src.backtesting import PortfolioBacktester
+from src.visualization import FinancialVisualizer
 
 class TestBasicFunctionality(unittest.TestCase):
     """Test basic functionality of the system"""
