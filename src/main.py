@@ -12,12 +12,17 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # Import custom modules
-from data.data_manager import DataManager
-from models.forecasting_models import ForecastingEngine, ARIMAForecaster, SARIMAForecaster, ProphetForecaster
-from utils.portfolio_optimizer import PortfolioOptimizer
-from utils.backtesting import PortfolioBacktester
-from utils.visualization import FinancialVisualizer
-from utils.financial_analysis import AdvancedFinancialAnalysis
+from src.data_manager import DataManager
+from models.forecasting_models import (
+    ForecastingEngine,
+    ARIMAForecaster,
+    SARIMAForecaster,
+    ProphetForecaster,
+)
+from src.portfolio_optimizer import PortfolioOptimizer
+from src.backtesting import PortfolioBacktester
+from src.visualization import FinancialVisualizer
+from src.financial_analysis import AdvancedFinancialAnalysis
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
