@@ -52,11 +52,21 @@ class BaseForecaster:
         mse = mean_squared_error(actual, predicted)
         mae = mean_absolute_error(actual, predicted)
         rmse = np.sqrt(mse)
-        
+
+        # Mean Absolute Percentage Error (exclude zeros to avoid division by zero)
+        actual_array = np.asarray(actual).astype(float)
+        predicted_array = np.asarray(predicted).astype(float)
+        non_zero_mask = actual_array != 0
+        if non_zero_mask.any():
+            mape = np.mean(np.abs((actual_array[non_zero_mask] - predicted_array[non_zero_mask]) / actual_array[non_zero_mask])) * 100.0
+        else:
+            mape = float('nan')
+
         return {
             'mse': mse,
             'mae': mae,
-            'rmse': rmse
+            'rmse': rmse,
+            'mape': mape,
         }
 
 class ARIMAForecaster(BaseForecaster):
@@ -170,48 +180,71 @@ class ProphetForecaster(BaseForecaster):
 
 class LSTMForecaster(BaseForecaster):
     """LSTM neural network for time series forecasting"""
-    
-    def __init__(self, units: int = 50, dropout: float = 0.2, epochs: int = 100, batch_size: int = 32):
+
+    def __init__(
+        self,
+        units: int = 50,
+        dropout: float = 0.2,
+        epochs: int = 100,
+        batch_size: int = 32,
+        lookback: int = 60,
+        learning_rate: float = 0.001,
+        random_seed: int = 42,
+    ):
         super().__init__("LSTM")
         if not TENSORFLOW_AVAILABLE:
             raise ImportError("TensorFlow is required for LSTM models")
-            
+
         self.units = units
         self.dropout = dropout
         self.epochs = epochs
         self.batch_size = batch_size
+        self.lookback = lookback
+        self.learning_rate = learning_rate
+        self.random_seed = random_seed
         self.scaler = MinMaxScaler()
-        
-    def _prepare_data(self, data: pd.Series, lookback: int = 60) -> Tuple[np.ndarray, np.ndarray]:
+        self.last_data: Optional[pd.Series] = None
+
+    def _prepare_data(self, data: pd.Series) -> Tuple[np.ndarray, np.ndarray]:
         """Prepare data for LSTM (create sequences)"""
         # Scale the data
         scaled_data = self.scaler.fit_transform(data.values.reshape(-1, 1))
-        
+
         X, y = [], []
-        for i in range(lookback, len(scaled_data)):
-            X.append(scaled_data[i-lookback:i, 0])
+        for i in range(self.lookback, len(scaled_data)):
+            X.append(scaled_data[i - self.lookback : i, 0])
             y.append(scaled_data[i, 0])
-        
+
         return np.array(X), np.array(y)
-        
+
     def fit(self, data: pd.Series) -> 'LSTMForecaster':
         """Fit LSTM model"""
         try:
+            # Store original data for prediction context
+            self.last_data = data.copy()
+
+            # Set seeds for reproducibility
+            np.random.seed(self.random_seed)
+            try:
+                tf.random.set_seed(self.random_seed)  # type: ignore[attr-defined]
+            except Exception:  # pragma: no cover
+                pass
+
             # Prepare data
             X, y = self._prepare_data(data)
             X = X.reshape((X.shape[0], X.shape[1], 1))
-            
+
             # Build LSTM model
             self.model = Sequential([
                 LSTM(units=self.units, return_sequences=True, input_shape=(X.shape[1], 1)),
                 Dropout(self.dropout),
                 LSTM(units=self.units, return_sequences=False),
                 Dropout(self.dropout),
-                Dense(units=1)
+                Dense(units=1),
             ])
-            
-            self.model.compile(optimizer=Adam(learning_rate=0.001), loss='mse')
-            
+
+            self.model.compile(optimizer=Adam(learning_rate=self.learning_rate), loss='mse')
+
             # Train the model
             self.model.fit(X, y, epochs=self.epochs, batch_size=self.batch_size, verbose=0)
             self.is_fitted = True
@@ -220,33 +253,32 @@ class LSTMForecaster(BaseForecaster):
         except Exception as e:
             logger.error(f"Error fitting LSTM model: {e}")
             raise
-            
+
     def predict(self, steps: int) -> np.ndarray:
         """Make LSTM predictions"""
-        if not self.is_fitted:
+        if not self.is_fitted or self.last_data is None:
             raise ValueError("Model must be fitted before making predictions")
-        
+
         try:
             # Get the last sequence from training data
-            last_sequence = self.scaler.transform(self.last_data.values[-60:].reshape(-1, 1))
-            last_sequence = last_sequence.reshape((1, 60, 1))
-            
-            predictions = []
-            current_sequence = last_sequence.copy()
-            
+            last_sequence_scaled = self.scaler.transform(
+                self.last_data.values[-self.lookback :].reshape(-1, 1)
+            )
+            current_sequence = last_sequence_scaled.reshape((1, self.lookback, 1))
+
+            predictions_scaled = []
             for _ in range(steps):
-                # Make prediction
-                pred = self.model.predict(current_sequence)
-                predictions.append(pred[0, 0])
-                
-                # Update sequence for next prediction
+                pred_scaled = self.model.predict(current_sequence, verbose=0)
+                predictions_scaled.append(pred_scaled[0, 0])
+
+                # Update sequence for next prediction (append predicted value)
                 current_sequence = np.roll(current_sequence, -1, axis=1)
-                current_sequence[0, -1, 0] = pred[0, 0]
-            
+                current_sequence[0, -1, 0] = pred_scaled[0, 0]
+
             # Inverse transform predictions
-            predictions = np.array(predictions).reshape(-1, 1)
-            predictions = self.scaler.inverse_transform(predictions).flatten()
-            
+            predictions_scaled = np.array(predictions_scaled).reshape(-1, 1)
+            predictions = self.scaler.inverse_transform(predictions_scaled).flatten()
+
             self.forecast_history.append(predictions)
             return predictions
         except Exception as e:
