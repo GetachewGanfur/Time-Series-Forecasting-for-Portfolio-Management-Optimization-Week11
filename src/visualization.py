@@ -167,8 +167,14 @@ class FinancialVisualizer:
                    alpha=0.6, s=30, label='Random Portfolios')
         
         # Find and highlight optimal portfolios
-        max_sharpe_idx = np.argmax([r/r for r, risk in zip(returns_list, risks_list) if risk > 0])
-        min_risk_idx = np.argmin(risks_list)
+        sharpe_list = []
+        for r, risk in zip(returns_list, risks_list):
+            if risk and risk > 0:
+                sharpe_list.append(r / risk)
+            else:
+                sharpe_list.append(float('-inf'))
+        max_sharpe_idx = int(np.argmax(sharpe_list))
+        min_risk_idx = int(np.argmin(risks_list))
         
         plt.scatter(risks_list[max_sharpe_idx], returns_list[max_sharpe_idx], 
                    color='red', s=200, marker='*', label='Maximum Sharpe Ratio')
