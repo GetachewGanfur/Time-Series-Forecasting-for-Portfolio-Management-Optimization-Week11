@@ -5,7 +5,6 @@ Data Management Module for Time Series Forecasting and Portfolio Optimization
 import pandas as pd
 import numpy as np
 import yfinance as yf
-import quandl
 from pandas_datareader import data as pdr
 from typing import List, Dict, Optional, Tuple
 import logging
@@ -26,7 +25,7 @@ class DataManager:
         Initialize DataManager
         
         Args:
-            data_source: Data source to use ('yfinance', 'quandl', 'pandas_datareader')
+            data_source: Data source to use ('yfinance', 'pandas_datareader')
         """
         self.data_source = data_source
         self.data_cache = {}
@@ -51,8 +50,6 @@ class DataManager:
         try:
             if self.data_source == "yfinance":
                 return self._fetch_yfinance_data(tickers, start_date, end_date, frequency)
-            elif self.data_source == "quandl":
-                return self._fetch_quandl_data(tickers, start_date, end_date, frequency)
             elif self.data_source == "pandas_datareader":
                 return self._fetch_pandas_datareader_data(tickers, start_date, end_date, frequency)
             else:
@@ -77,23 +74,6 @@ class DataManager:
             return data
         except Exception as e:
             logger.error(f"Error fetching yfinance data: {e}")
-            raise
-    
-    def _fetch_quandl_data(self, tickers: List[str], start_date: str, end_date: str, frequency: str) -> pd.DataFrame:
-        """Fetch data using Quandl"""
-        try:
-            data_dict = {}
-            for ticker in tickers:
-                # Quandl format: WIKI/AAPL for stock data
-                quandl_code = f"WIKI/{ticker}"
-                ticker_data = quandl.get(quandl_code, start_date=start_date, end_date=end_date)
-                data_dict[ticker] = ticker_data
-            
-            # Combine all tickers
-            combined_data = pd.concat(data_dict, axis=1)
-            return combined_data
-        except Exception as e:
-            logger.error(f"Error fetching Quandl data: {e}")
             raise
     
     def _fetch_pandas_datareader_data(self, tickers: List[str], start_date: str, end_date: str, frequency: str) -> pd.DataFrame:
