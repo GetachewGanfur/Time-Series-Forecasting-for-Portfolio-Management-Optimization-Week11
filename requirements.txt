@@ -13,7 +13,6 @@ keras>=2.8.0
 # Financial analysis and portfolio optimization
 yfinance>=0.1.70
 pandas-datareader>=0.10.0
-quandl>=3.6.0
 cvxpy>=1.2.0
 pypfopt>=1.2.0
 
