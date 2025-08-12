@@ -6,14 +6,70 @@ import pandas as pd
 import numpy as np
 from typing import Dict, List, Tuple, Optional, Union
 import logging
-from sklearn.metrics import mean_squared_error, mean_absolute_error
-from sklearn.preprocessing import MinMaxScaler
 import warnings
+
+# Optional dependencies: scikit-learn (metrics + scaler)
+try:
+    from sklearn.metrics import mean_squared_error, mean_absolute_error  # type: ignore
+    from sklearn.preprocessing import MinMaxScaler  # type: ignore
+    SKLEARN_AVAILABLE = True
+except Exception:  # pragma: no cover - provide lightweight fallbacks
+    SKLEARN_AVAILABLE = False
+
+    def mean_squared_error(y_true, y_pred):  # type: ignore
+        y_true_arr = np.asarray(y_true, dtype=float)
+        y_pred_arr = np.asarray(y_pred, dtype=float)
+        return float(np.mean((y_true_arr - y_pred_arr) ** 2))
+
+    def mean_absolute_error(y_true, y_pred):  # type: ignore
+        y_true_arr = np.asarray(y_true, dtype=float)
+        y_pred_arr = np.asarray(y_pred, dtype=float)
+        return float(np.mean(np.abs(y_true_arr - y_pred_arr)))
+
+    class MinMaxScaler:  # minimal replacement for sklearn's scaler
+        def __init__(self, feature_range: Tuple[float, float] = (0.0, 1.0)):
+            self.feature_range = feature_range
+            self.data_min_: Optional[np.ndarray] = None
+            self.data_max_: Optional[np.ndarray] = None
+            self.scale_: Optional[np.ndarray] = None
+            self.min_: Optional[np.ndarray] = None
+
+        def fit(self, X: np.ndarray):
+            X_arr = np.asarray(X, dtype=float)
+            self.data_min_ = np.min(X_arr, axis=0)
+            self.data_max_ = np.max(X_arr, axis=0)
+            data_range = self.data_max_ - self.data_min_
+            # prevent divide-by-zero when data is constant
+            data_range = np.where(data_range == 0.0, 1.0, data_range)
+            fr_min, fr_max = self.feature_range
+            self.scale_ = (fr_max - fr_min) / data_range
+            self.min_ = fr_min - self.data_min_ * self.scale_
+            return self
+
+        def transform(self, X: np.ndarray) -> np.ndarray:
+            X_arr = np.asarray(X, dtype=float)
+            return X_arr * self.scale_ + self.min_  # type: ignore[operator]
+
+        def fit_transform(self, X: np.ndarray) -> np.ndarray:
+            return self.fit(X).transform(X)
+
+        def inverse_transform(self, X: np.ndarray) -> np.ndarray:
+            X_arr = np.asarray(X, dtype=float)
+            return (X_arr - self.min_) / self.scale_  # type: ignore[operator]
 
 # Time series models
 from statsmodels.tsa.arima.model import ARIMA
 from statsmodels.tsa.statespace.sarimax import SARIMAX
-from prophet import Prophet
+
+# Optional dependency: prophet
+try:
+    from prophet import Prophet  # type: ignore
+    PROPHET_AVAILABLE = True
+except Exception:
+    PROPHET_AVAILABLE = False
+    warnings.warn(
+        "Prophet is not available. ProphetForecaster will not work until you install 'prophet'."
+    )
 
 # Deep learning
 try:
@@ -144,6 +200,8 @@ class ProphetForecaster(BaseForecaster):
     def fit(self, data: pd.Series) -> 'ProphetForecaster':
         """Fit Prophet model"""
         try:
+            if not PROPHET_AVAILABLE:
+                raise ImportError("Prophet is required for ProphetForecaster. Please install 'prophet'.")
             # Prepare data for Prophet (requires 'ds' and 'y' columns)
             df = pd.DataFrame({
                 'ds': data.index,
