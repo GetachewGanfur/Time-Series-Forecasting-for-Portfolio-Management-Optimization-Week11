@@ -14,7 +14,7 @@ NOTEBOOKS_DIR = PROJECT_ROOT / "notebooks"
 TESTS_DIR = PROJECT_ROOT / "tests"
 
 # Data configuration
-DEFAULT_DATA_SOURCE = "yfinance"  # Alternative: "quandl", "pandas_datareader"
+DEFAULT_DATA_SOURCE = "yfinance"  # Alternative: "pandas_datareader"
 DEFAULT_START_DATE = "2020-01-01"
 DEFAULT_END_DATE = "2024-01-01"
 DEFAULT_FREQUENCY = "1d"  # Daily frequency
@@ -59,7 +59,6 @@ LOG_LEVEL = "INFO"
 LOG_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 
 # API configuration (if using external data sources)
-QUANDL_API_KEY = os.getenv("QUANDL_API_KEY", "")
 ALPHA_VANTAGE_API_KEY = os.getenv("ALPHA_VANTAGE_API_KEY", "")
 
 # Performance metrics
