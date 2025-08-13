@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 import yfinance as yf
 from pandas_datareader import data as pdr
-from typing import List, Dict, Optional, Tuple
+from typing import List, Dict, Optional, Tuple, Union
 import logging
 from datetime import datetime, timedelta
 import warnings
@@ -31,7 +31,7 @@ class DataManager:
         self.data_cache = {}
         
     def fetch_data(self, 
-                   tickers: List[str], 
+                   tickers: Union[List[str], str], 
                    start_date: str = "2020-01-01",
                    end_date: str = "2024-01-01",
                    frequency: str = "1d") -> pd.DataFrame:
@@ -39,7 +39,7 @@ class DataManager:
         Fetch financial data for given tickers
         
         Args:
-            tickers: List of stock tickers
+            tickers: Single ticker symbol or list of stock tickers
             start_date: Start date for data
             end_date: End date for data
             frequency: Data frequency ('1d', '1wk', '1mo')
@@ -48,6 +48,10 @@ class DataManager:
             DataFrame with OHLCV data
         """
         try:
+            # Normalize tickers to a list[str]
+            if isinstance(tickers, str):
+                tickers = [tickers]
+
             if self.data_source == "yfinance":
                 return self._fetch_yfinance_data(tickers, start_date, end_date, frequency)
             elif self.data_source == "pandas_datareader":
@@ -61,14 +65,11 @@ class DataManager:
     def _fetch_yfinance_data(self, tickers: List[str], start_date: str, end_date: str, frequency: str) -> pd.DataFrame:
         """Fetch data using yfinance"""
         try:
-            # Override pandas_datareader with yfinance
-            yf.pdr_override()
+            # Use yfinance directly
+            data = yf.download(tickers, start=start_date, end=end_date, interval=frequency)
             
-            # Fetch data for all tickers
-            data = pdr.get_data_yahoo(tickers, start=start_date, end=end_date, interval=frequency)
-            
-            # Handle single ticker case
-            if len(tickers) == 1:
+            # Handle single ticker case: yfinance may return single-index columns; make them MultiIndex
+            if len(tickers) == 1 and not isinstance(data.columns, pd.MultiIndex):
                 data.columns = pd.MultiIndex.from_product([tickers, data.columns])
             
             return data
@@ -81,7 +82,7 @@ class DataManager:
         try:
             data_dict = {}
             for ticker in tickers:
-                ticker_data = pdr.get_data_yahoo(ticker, start=start_date, end=end_date, interval=frequency)
+                ticker_data = pdr.get_data_yahoo(ticker, start=start_date, end=end_date)
                 data_dict[ticker] = ticker_data
             
             # Combine all tickers
