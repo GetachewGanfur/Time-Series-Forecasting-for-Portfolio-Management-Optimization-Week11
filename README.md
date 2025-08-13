@@ -7,10 +7,10 @@ This project provides a comprehensive, step-by-step framework for optimizing por
 
 ## Features
 - **Diverse Forecasting Models**: Includes ARIMA, SARIMA, Prophet, LSTM, and ensemble approaches
-- **Portfolio Optimization Techniques**: Implements Modern Portfolio Theory, Black-Litterman, and risk-parity methods
+- **Portfolio Optimization Techniques**: Implements Modern Portfolio Theory and risk-parity methods
 - **Risk Management Tools**: Supports Historical, Parametric, and Monte Carlo VaR/CVaR calculations
 - **Statistical Analysis Suite**: Provides ADF stationarity, Jarque-Bera normality, and Ljung-Box autocorrelation tests
-- **Data Processing Enhancements**: Handles missing data, detects outliers, and performs time-based interpolation
+- **Data Processing Enhancements**: Handles missing data and time-based interpolation; basic IQR outlier scan in pipeline
 - **Rolling Analytics**: Calculates rolling volatility (30-day), rolling Sharpe ratios, and dynamic risk metrics
 - **Backtesting Framework**: Evaluates performance with transaction cost considerations
 - **Visualization Tools**: Generates efficient frontiers, correlation heatmaps, and drawdown analyses
@@ -33,8 +33,8 @@ This project provides a comprehensive, step-by-step framework for optimizing por
    - Supports model selection, hyperparameter tuning, and cross-validation for optimal forecasting accuracy.
 
 5. **Portfolio Optimization**
-   - Applies Modern Portfolio Theory, Black-Litterman, and risk-parity optimization techniques to construct efficient portfolios.
-   - Incorporates forecasted returns and risk metrics into the optimization process.
+   - Applies Modern Portfolio Theory and risk-parity optimization techniques to construct efficient portfolios.
+   - Incorporates historical/forecasted returns and risk metrics into the optimization process.
 
 6. **Risk Management**
    - Calculates Value at Risk (VaR) and Conditional Value at Risk (CVaR) using Historical, Parametric, and Monte Carlo methods.
@@ -51,16 +51,15 @@ This project provides a comprehensive, step-by-step framework for optimizing por
    - Generates efficient frontiers, correlation heatmaps, drawdown plots, and other insightful visualizations.
    - Produces comprehensive reports summarizing key findings and performance.
 
-## Features
-- **Diverse Forecasting Models**: ARIMA, SARIMA, Prophet, LSTM, and ensemble approaches
-- **Portfolio Optimization Techniques**: Modern Portfolio Theory, Black-Litterman, and risk-parity methods
-- **Risk Management Tools**: Historical, Parametric, and Monte Carlo VaR/CVaR calculations
-- **Statistical Analysis Suite**: ADF stationarity, Jarque-Bera normality, and Ljung-Box autocorrelation tests
-- **Data Processing Enhancements**: Missing data handling, outlier detection, and time-based interpolation
-- **Rolling Analytics**: Rolling volatility, rolling Sharpe ratios, and dynamic risk metrics
-- **Backtesting Framework**: Performance evaluation with transaction cost considerations
-- **Visualization Tools**: Efficient frontiers, correlation heatmaps, and drawdown analyses
-- **Real-time Data Integration**: YFinance integration with robust error handling
+## Feature Summary
+- **Forecasting**: ARIMA, SARIMA, Prophet, LSTM, ensemble
+- **Optimization**: Modern Portfolio Theory, risk parity
+- **Risk**: VaR/CVaR (historical, parametric, Monte Carlo)
+- **Statistics**: ADF, Jarque-Bera, Ljung-Box
+- **Processing**: Missing data handling; IQR outlier scan
+- **Analytics**: Rolling volatility and Sharpe
+- **Backtesting**: Transaction costs, monthly rebalancing
+- **Visualization**: Efficient frontier, heatmaps, drawdown
 
 ## Project Structure
 
