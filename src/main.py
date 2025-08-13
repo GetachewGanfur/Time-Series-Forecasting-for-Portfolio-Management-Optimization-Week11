@@ -31,7 +31,7 @@ logger = logging.getLogger(__name__)
 def main():
     """Enhanced main function with comprehensive financial analysis"""
     
-    logger.info("Starting Enhanced Portfolio Management System - 100% Rubric Compliance")
+    logger.info("Starting Enhanced Portfolio Management System")
     
     # Initialize components
     data_manager = DataManager(data_source="yfinance")
@@ -57,33 +57,61 @@ def main():
             raw_data[ticker] = ticker_data
             logger.info(f"✓ {ticker}: {len(ticker_data)} records fetched")
         
-        # Advanced data cleaning and preprocessing
-        logger.info("Applying advanced data cleaning and preprocessing...")
+        # Data cleaning and preprocessing
+        logger.info("Applying data cleaning and preprocessing...")
         cleaned_data = {}
+
+        def _extract_close_series(df: pd.DataFrame, tk: str) -> pd.Series:
+            # Robustly extract 'Close' for a per-ticker DataFrame that may be MultiIndex
+            if isinstance(df.columns, pd.MultiIndex):
+                # Try (ticker, 'Close') first (common when single ticker is first level)
+                if (tk, 'Close') in df.columns:
+                    return df[(tk, 'Close')].rename('Close')
+                # Try ('Close', ticker) layout
+                if ('Close', tk) in df.columns:
+                    return df[('Close', tk)].rename('Close')
+                # Fallback: cross-section by 'Close' on last level
+                if 'Close' in df.columns.get_level_values(-1):
+                    cs = df.xs('Close', level=-1, axis=1)
+                    # If a single column remains, squeeze to Series
+                    if tk in cs.columns:
+                        return cs[tk].rename('Close')
+                    if cs.shape[1] == 1:
+                        return cs.iloc[:, 0].rename('Close')
+                raise KeyError("Unable to locate 'Close' column in fetched data")
+            # Single-level columns
+            if 'Close' in df.columns:
+                return df['Close']
+            raise KeyError("'Close' column not found in data")
+
+        def _iqr_outliers(series: pd.Series) -> pd.Series:
+            # Simple IQR-based outlier indicator for logging only
+            s = pd.Series(series).dropna()
+            q1, q3 = s.quantile(0.25), s.quantile(0.75)
+            iqr = q3 - q1
+            lower, upper = q1 - 1.5 * iqr, q3 + 1.5 * iqr
+            mask = (series < lower) | (series > upper)
+            return mask.fillna(False)
+
         for ticker, data in raw_data.items():
-            # Use advanced cleaning method
-            cleaned_data[ticker] = data_manager.clean_data(data, method='advanced')
-            
-            # Detect and log outliers
-            if len(tickers) == 1:
-                close_prices = cleaned_data[ticker]['Close']
-            else:
-                close_prices = cleaned_data[ticker]['Close'][ticker]
-            
-            outliers = data_manager.detect_outliers(close_prices, method='iqr')
-            logger.info(f"✓ {ticker}: Data cleaned, {outliers.sum()} outliers detected")
+            cleaned = data_manager.clean_data(data)
+            cleaned_data[ticker] = cleaned
+            try:
+                close_prices_series = _extract_close_series(cleaned, ticker)
+                outliers_mask = _iqr_outliers(close_prices_series)
+                logger.info(f"✓ {ticker}: Data cleaned, {int(outliers_mask.sum())} potential outliers (IQR)")
+            except Exception as e:
+                logger.warning(f"Outlier scan skipped for {ticker}: {e}")
         
         # Calculate daily returns with detailed analysis
         logger.info("Calculating daily financial returns...")
         returns_data = {}
         for ticker, data in cleaned_data.items():
-            if len(tickers) == 1:
-                close_prices = data['Close']
-            else:
-                close_prices = data['Close'][ticker]
-            
-            returns_data[ticker] = data_manager.calculate_returns(close_prices, method="log")
-            logger.info(f"✓ {ticker}: Daily returns calculated (mean: {returns_data[ticker].mean():.6f})")
+            # Extract close prices robustly and compute returns
+            close_prices = _extract_close_series(data, ticker)
+            returns_series = data_manager.calculate_returns(close_prices, method="log")
+            returns_data[ticker] = returns_series
+            logger.info(f"✓ {ticker}: Daily returns calculated (mean: {returns_series.mean():.6f})")
         
         # Combine returns into single DataFrame
         returns_df = pd.concat(returns_data, axis=1)
@@ -262,15 +290,15 @@ def main():
         
         # === 7. FINAL SUMMARY ===
         logger.info("\n" + "="*80)
-        logger.info("ENHANCED ANALYSIS COMPLETED SUCCESSFULLY")
+        logger.info("ANALYSIS COMPLETED SUCCESSFULLY")
         logger.info("="*80)
-        logger.info("✓ Advanced data loading and preprocessing with outlier detection")
+        logger.info("✓ Data loading and preprocessing with IQR outlier scan")
         logger.info("✓ Comprehensive EDA with statistical tests (ADF, Jarque-Bera, Ljung-Box)")
         logger.info("✓ Multiple VaR calculation methods (Historical, Parametric, Monte Carlo)")
         logger.info("✓ Rolling volatility analysis and stationarity testing")
-        logger.info("✓ Advanced portfolio optimization with risk metrics")
-        logger.info("✓ Comprehensive backtesting and performance evaluation")
-        logger.info("✓ Professional-grade visualizations and reporting")
+        logger.info("✓ Portfolio optimization with risk metrics")
+        logger.info("✓ Backtesting and performance evaluation")
+        logger.info("✓ Visualizations and reporting")
         logger.info("="*80)
         
     except Exception as e:
