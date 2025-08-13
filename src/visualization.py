@@ -34,7 +34,9 @@ class FinancialVisualizer:
     def plot_price_series(self, 
                          data: Dict[str, pd.DataFrame], 
                          column: str = 'Close',
-                         title: str = 'Asset Prices Over Time') -> None:
+                         title: str = 'Asset Prices Over Time',
+                         save_path: Optional[str] = None,
+                         show: bool = True) -> None:
         """
         Plot price series for multiple assets
 
@@ -55,11 +57,23 @@ class FinancialVisualizer:
         plt.legend(fontsize=12)
         plt.grid(True, alpha=0.3)
         plt.tight_layout()
-        plt.show()
+        if save_path:
+            try:
+                import os
+                os.makedirs(os.path.dirname(save_path), exist_ok=True)
+                plt.savefig(save_path, bbox_inches='tight')
+            except Exception:
+                pass
+        if show:
+            plt.show()
+        else:
+            plt.close()
 
     def plot_returns_distribution(self, 
                                 returns: pd.DataFrame,
-                                title: str = 'Daily Returns Distribution') -> None:
+                                title: str = 'Daily Returns Distribution',
+                                save_path: Optional[str] = None,
+                                show: bool = True) -> None:
         """
         Plot distribution of daily returns
 
@@ -90,12 +104,24 @@ class FinancialVisualizer:
             ax.legend()
         
         plt.tight_layout()
-        plt.show()
+        if save_path:
+            try:
+                import os
+                os.makedirs(os.path.dirname(save_path), exist_ok=True)
+                plt.savefig(save_path, bbox_inches='tight')
+            except Exception:
+                pass
+        if show:
+            plt.show()
+        else:
+            plt.close()
 
     def plot_rolling_volatility(self, 
                                returns: pd.DataFrame,
                                window: int = 30,
-                               title: str = 'Rolling Volatility') -> None:
+                               title: str = 'Rolling Volatility',
+                               save_path: Optional[str] = None,
+                               show: bool = True) -> None:
         """
         Plot rolling volatility for multiple assets
 
@@ -118,11 +144,23 @@ class FinancialVisualizer:
         plt.legend(fontsize=12)
         plt.grid(True, alpha=0.3)
         plt.tight_layout()
-        plt.show()
+        if save_path:
+            try:
+                import os
+                os.makedirs(os.path.dirname(save_path), exist_ok=True)
+                plt.savefig(save_path, bbox_inches='tight')
+            except Exception:
+                pass
+        if show:
+            plt.show()
+        else:
+            plt.close()
 
     def plot_correlation_heatmap(self, 
                                 returns: pd.DataFrame,
-                                title: str = 'Asset Returns Correlation Matrix') -> None:
+                                title: str = 'Asset Returns Correlation Matrix',
+                                save_path: Optional[str] = None,
+                                show: bool = True) -> None:
         """
         Plot correlation heatmap for asset returns
 
@@ -142,14 +180,26 @@ class FinancialVisualizer:
         
         plt.title(title, fontsize=16, fontweight='bold')
         plt.tight_layout()
-        plt.show()
+        if save_path:
+            try:
+                import os
+                os.makedirs(os.path.dirname(save_path), exist_ok=True)
+                plt.savefig(save_path, bbox_inches='tight')
+            except Exception:
+                pass
+        if show:
+            plt.show()
+        else:
+            plt.close()
 
     def plot_efficient_frontier(self, 
                               returns_list: List[float],
                               risks_list: List[float],
                               weights_list: List[np.ndarray],
                               asset_names: List[str],
-                              title: str = 'Efficient Frontier') -> None:
+                              title: str = 'Efficient Frontier',
+                              save_path: Optional[str] = None,
+                              show: bool = True) -> None:
         """
         Plot efficient frontier with portfolio points
 
@@ -188,12 +238,24 @@ class FinancialVisualizer:
         plt.grid(True, alpha=0.3)
         plt.colorbar(label='Return')
         plt.tight_layout()
-        plt.show()
+        if save_path:
+            try:
+                import os
+                os.makedirs(os.path.dirname(save_path), exist_ok=True)
+                plt.savefig(save_path, bbox_inches='tight')
+            except Exception:
+                pass
+        if show:
+            plt.show()
+        else:
+            plt.close()
 
     def plot_portfolio_weights(self, 
                              weights: np.ndarray,
                              asset_names: List[str],
-                             title: str = 'Portfolio Allocation') -> None:
+                             title: str = 'Portfolio Allocation',
+                             save_path: Optional[str] = None,
+                             show: bool = True) -> None:
         """
         Plot portfolio weights as a bar chart
 
@@ -218,12 +280,24 @@ class FinancialVisualizer:
         plt.ylim(0, max(weights) * 1.1)
         plt.grid(True, alpha=0.3, axis='y')
         plt.tight_layout()
-        plt.show()
+        if save_path:
+            try:
+                import os
+                os.makedirs(os.path.dirname(save_path), exist_ok=True)
+                plt.savefig(save_path, bbox_inches='tight')
+            except Exception:
+                pass
+        if show:
+            plt.show()
+        else:
+            plt.close()
 
     def plot_portfolio_performance(self, 
                                  portfolio_values: pd.DataFrame,
                                  benchmark_values: Optional[pd.Series] = None,
-                                 title: str = 'Portfolio Performance') -> None:
+                                 title: str = 'Portfolio Performance',
+                                 save_path: Optional[str] = None,
+                                 show: bool = True) -> None:
         """
         Plot portfolio performance over time
 
@@ -251,11 +325,23 @@ class FinancialVisualizer:
         plt.legend(fontsize=12)
         plt.grid(True, alpha=0.3)
         plt.tight_layout()
-        plt.show()
+        if save_path:
+            try:
+                import os
+                os.makedirs(os.path.dirname(save_path), exist_ok=True)
+                plt.savefig(save_path, bbox_inches='tight')
+            except Exception:
+                pass
+        if show:
+            plt.show()
+        else:
+            plt.close()
 
     def plot_drawdown(self, 
                      portfolio_values: pd.DataFrame,
-                     title: str = 'Portfolio Drawdown') -> None:
+                     title: str = 'Portfolio Drawdown',
+                     save_path: Optional[str] = None,
+                     show: bool = True) -> None:
         """
         Plot portfolio drawdown over time
 
@@ -279,11 +365,23 @@ class FinancialVisualizer:
         plt.grid(True, alpha=0.3)
         plt.axhline(y=0, color='black', linestyle='-', alpha=0.5)
         plt.tight_layout()
-        plt.show()
+        if save_path:
+            try:
+                import os
+                os.makedirs(os.path.dirname(save_path), exist_ok=True)
+                plt.savefig(save_path, bbox_inches='tight')
+            except Exception:
+                pass
+        if show:
+            plt.show()
+        else:
+            plt.close()
 
     def plot_rolling_metrics(self, 
                            rolling_metrics: pd.DataFrame,
-                           title: str = 'Rolling Portfolio Metrics') -> None:
+                           title: str = 'Rolling Portfolio Metrics',
+                           save_path: Optional[str] = None,
+                           show: bool = True) -> None:
         """
         Plot rolling portfolio metrics
 
@@ -319,12 +417,24 @@ class FinancialVisualizer:
         axes[1, 1].grid(True, alpha=0.3)
         
         plt.tight_layout()
-        plt.show()
+        if save_path:
+            try:
+                import os
+                os.makedirs(os.path.dirname(save_path), exist_ok=True)
+                plt.savefig(save_path, bbox_inches='tight')
+            except Exception:
+                pass
+        if show:
+            plt.show()
+        else:
+            plt.close()
 
     def plot_forecast_comparison(self, 
                                actual: pd.Series,
                                forecasts: Dict[str, np.ndarray],
-                               title: str = 'Forecast Comparison') -> None:
+                               title: str = 'Forecast Comparison',
+                               save_path: Optional[str] = None,
+                               show: bool = True) -> None:
         """
         Plot actual vs forecasted values
 
@@ -351,12 +461,24 @@ class FinancialVisualizer:
         plt.legend(fontsize=12)
         plt.grid(True, alpha=0.3)
         plt.tight_layout()
-        plt.show()
+        if save_path:
+            try:
+                import os
+                os.makedirs(os.path.dirname(save_path), exist_ok=True)
+                plt.savefig(save_path, bbox_inches='tight')
+            except Exception:
+                pass
+        if show:
+            plt.show()
+        else:
+            plt.close()
 
     def create_dashboard(self, 
                         data: Dict[str, pd.DataFrame],
                         returns: pd.DataFrame,
-                        portfolio_values: Optional[pd.DataFrame] = None) -> None:
+                        portfolio_values: Optional[pd.DataFrame] = None,
+                        save_path: Optional[str] = None,
+                        show: bool = True) -> None:
         """
         Create a comprehensive dashboard with multiple plots
 
@@ -416,4 +538,14 @@ class FinancialVisualizer:
             ax6.grid(True, alpha=0.3)
         
         plt.tight_layout()
-        plt.show()
+        if save_path:
+            try:
+                import os
+                os.makedirs(os.path.dirname(save_path), exist_ok=True)
+                plt.savefig(save_path, bbox_inches='tight')
+            except Exception:
+                pass
+        if show:
+            plt.show()
+        else:
+            plt.close()

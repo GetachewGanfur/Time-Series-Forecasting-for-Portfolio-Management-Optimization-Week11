@@ -121,6 +121,16 @@ Create a `.env` file with keys like `QUANDL_API_KEY` if needed.
 python -m src.main
 ```
 
+Artifacts (saved figures) will be written to `artifacts/figures`, e.g.:
+- `prices.png`
+- `returns_distribution.png`
+- `rolling_volatility.png`
+- `correlation_heatmap.png`
+- `efficient_frontier.png`
+- `portfolio_weights.png`
+- `performance.png`
+- `drawdown.png`
+
 - Work through the notebooks in order:
   1. `notebooks/task1_data_preprocessing.ipynb`
   2. `notebooks/task2_tsla_forecasting.ipynb`
@@ -132,6 +142,11 @@ python -m src.main
 
 ```bash
 pytest -q
+```
+
+Tip: Run a single integration test quickly:
+```bash
+python -m pytest tests/test_integration.py -q
 ```
 
 ## Notes

@@ -53,3 +53,7 @@ def test_end_to_end_minimal_pipeline():
     results = backtester.run_backtest(df, weights_df, rebalance_frequency="monthly")
     assert "portfolio_values" in results and not results["portfolio_values"].empty
 
+    # Risk parity optimization also runs and sums to 1
+    w_rp, stats_rp = optimizer.optimize_risk_parity(df)
+    assert np.isclose(w_rp.sum(), 1.0, atol=1e-6)
+

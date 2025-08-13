@@ -231,28 +231,60 @@ def main():
         
         # Create comprehensive visualizations
         try:
+            # Define output directory for figures
+            figures_dir = "artifacts/figures"
+
             # Price series with enhanced styling
-            visualizer.plot_price_series(cleaned_data, title='TSLA, BND, SPY Price Series Analysis')
+            visualizer.plot_price_series(
+                cleaned_data,
+                title='TSLA, BND, SPY Price Series Analysis',
+                save_path=f"{figures_dir}/prices.png",
+                show=False,
+            )
             
             # Returns distribution analysis
-            visualizer.plot_returns_distribution(returns_df, title='Daily Returns Distribution Analysis')
+            visualizer.plot_returns_distribution(
+                returns_df,
+                title='Daily Returns Distribution Analysis',
+                save_path=f"{figures_dir}/returns_distribution.png",
+                show=False,
+            )
             
             # Rolling volatility visualization
-            visualizer.plot_rolling_volatility(returns_df, window=30, title='30-Day Rolling Volatility Analysis')
+            visualizer.plot_rolling_volatility(
+                returns_df,
+                window=30,
+                title='30-Day Rolling Volatility Analysis',
+                save_path=f"{figures_dir}/rolling_volatility.png",
+                show=False,
+            )
             
             # Correlation analysis
-            visualizer.plot_correlation_heatmap(returns_df, title='Asset Returns Correlation Matrix')
+            visualizer.plot_correlation_heatmap(
+                returns_df,
+                title='Asset Returns Correlation Matrix',
+                save_path=f"{figures_dir}/correlation_heatmap.png",
+                show=False,
+            )
             
             # Efficient frontier with optimal portfolios
             visualizer.plot_efficient_frontier(
-                returns_list, risks_list, weights_list, tickers,
-                title='Efficient Frontier - Portfolio Optimization'
+                returns_list,
+                risks_list,
+                weights_list,
+                tickers,
+                title='Efficient Frontier - Portfolio Optimization',
+                save_path=f"{figures_dir}/efficient_frontier.png",
+                show=False,
             )
             
             # Portfolio weights visualization
             visualizer.plot_portfolio_weights(
-                max_sharpe_weights, tickers,
-                title='Maximum Sharpe Ratio Portfolio Allocation'
+                max_sharpe_weights,
+                tickers,
+                title='Maximum Sharpe Ratio Portfolio Allocation',
+                save_path=f"{figures_dir}/portfolio_weights.png",
+                show=False,
             )
             
             logger.info("✓ All enhanced visualizations generated successfully")
@@ -279,13 +311,17 @@ def main():
         # Portfolio performance visualization
         visualizer.plot_portfolio_performance(
             backtest_results['portfolio_values'],
-            title='Enhanced Portfolio Performance Analysis'
+            title='Enhanced Portfolio Performance Analysis',
+            save_path="artifacts/figures/performance.png",
+            show=False,
         )
         
         # Drawdown analysis
         visualizer.plot_drawdown(
             backtest_results['portfolio_values'],
-            title='Portfolio Drawdown Analysis'
+            title='Portfolio Drawdown Analysis',
+            save_path="artifacts/figures/drawdown.png",
+            show=False,
         )
         
         # === 7. FINAL SUMMARY ===
