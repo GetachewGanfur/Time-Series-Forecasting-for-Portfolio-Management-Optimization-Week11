@@ -1,11 +1,9 @@
-"""
-Utils module for Portfolio Management
+"""Top-level package for portfolio management system.
+
+Note: Heavy submodules are intentionally not imported here to avoid
+side effects and optional dependency imports during package initialization.
+Import submodules directly, e.g.:
+    from src.portfolio_optimizer import PortfolioOptimizer
 """
 
-from .data_manager import DataManager
-from .portfolio_optimizer import PortfolioOptimizer
-from .backtesting import PortfolioBacktester
-from .visualization import FinancialVisualizer
-from .financial_analysis import AdvancedFinancialAnalysis
-
-__all__ = ['DataManager', 'PortfolioOptimizer', 'PortfolioBacktester', 'FinancialVisualizer', 'AdvancedFinancialAnalysis']
+__all__ = []
