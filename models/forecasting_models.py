@@ -110,8 +110,8 @@ class BaseForecaster:
         rmse = np.sqrt(mse)
 
         # Mean Absolute Percentage Error (exclude zeros to avoid division by zero)
-        actual_array = np.asarray(actual).astype(float)
-        predicted_array = np.asarray(predicted).astype(float)
+        actual_array = np.asarray(actual).astype(float).flatten()
+        predicted_array = np.asarray(predicted).astype(float).flatten()
         non_zero_mask = actual_array != 0
         if non_zero_mask.any():
             mape = np.mean(np.abs((actual_array[non_zero_mask] - predicted_array[non_zero_mask]) / actual_array[non_zero_mask])) * 100.0
